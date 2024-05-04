@@ -53,9 +53,21 @@ alpha_diversity %>%
   tt()
 ```
 
-```{r alpha_diversities_filtered_plot, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+```{r alpha_diversities_filtered_plot_protocol, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
 alpha_diversity %>%
-  pivot_longer(!c(microsample,section,cryosection,type,buffer,batch,Xcoord,Ycoord,size), names_to = "metric", values_to = "value") %>%
+  pivot_longer(!c(microsample,section,cryosection,type,buffer,batch,protocol,Xcoord,Ycoord,size), names_to = "metric", values_to = "value") %>%
+  left_join(quality,by=join_by(microsample==microsample)) %>%
+  mutate(metric=factor(metric,levels=c("richness","neutral","phylogenetic"))) %>%
+  ggplot(aes(x=protocol, y=value, color=quality, group=protocol))+ 
+        scale_color_gradient(low = "red", high = "green", name = "Quality") +
+        geom_boxplot(outlier.shape = NA) +
+        geom_jitter(width=0.2) + 
+        facet_grid(metric ~ section, scales = "free")
+```
+
+```{r alpha_diversities_filtered_plot_batch, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+alpha_diversity %>%
+  pivot_longer(!c(microsample,section,cryosection,type,buffer,batch,protocol,Xcoord,Ycoord,size), names_to = "metric", values_to = "value") %>%
   left_join(quality,by=join_by(microsample==microsample)) %>%
   mutate(metric=factor(metric,levels=c("richness","neutral","phylogenetic"))) %>%
   ggplot(aes(x=batch, y=value, color=quality, group=batch))+ 
@@ -118,9 +130,21 @@ alpha_diversity %>%
   tt()
 ```
 
-```{r alpha_diversities_unfiltered_plot, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+```{r alpha_diversities_unfiltered_plot_protocol, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
 alpha_diversity %>%
-  pivot_longer(!c(microsample,section,cryosection,type,buffer,batch,Xcoord,Ycoord,size), names_to = "metric", values_to = "value") %>%
+  pivot_longer(!c(microsample,section,cryosection,type,buffer,batch,protocol,Xcoord,Ycoord,size), names_to = "metric", values_to = "value") %>%
+  left_join(quality,by=join_by(microsample==microsample)) %>%
+  mutate(metric=factor(metric,levels=c("richness","neutral","phylogenetic"))) %>%
+  ggplot(aes(x=protocol, y=value, color=quality, group=protocol))+ 
+        scale_color_gradient(low = "red", high = "green", name = "Quality") +
+        geom_boxplot(outlier.shape = NA) +
+        geom_jitter(width=0.2) + 
+        facet_grid(metric ~ section, scales = "free")
+```
+
+```{r alpha_diversities_unfiltered_plot_batch, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+alpha_diversity %>%
+  pivot_longer(!c(microsample,section,cryosection,type,buffer,batch,protocol,Xcoord,Ycoord,size), names_to = "metric", values_to = "value") %>%
   left_join(quality,by=join_by(microsample==microsample)) %>%
   mutate(metric=factor(metric,levels=c("richness","neutral","phylogenetic"))) %>%
   ggplot(aes(x=batch, y=value, color=quality, group=batch))+ 

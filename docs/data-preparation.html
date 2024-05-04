@@ -2084,15 +2084,15 @@ color: #741A48;
 <li class="chapter" data-level="4.1.2" data-path="community-composition.html"><a href="community-composition.html#positive-samples-coverage-unfiltered"><i class="fa fa-check"></i><b>4.1.2</b> Positive samples, coverage-unfiltered</a></li>
 <li class="chapter" data-level="4.1.3" data-path="community-composition.html"><a href="community-composition.html#control-samples-coverage-unfiltered"><i class="fa fa-check"></i><b>4.1.3</b> Control samples, coverage-unfiltered</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="community-composition.html"><a href="community-composition.html#alpha-diversities"><i class="fa fa-check"></i><b>4.2</b> Alpha diversities</a>
-<ul>
-<li class="chapter" data-level="4.2.1" data-path="community-composition.html"><a href="community-composition.html#filtered"><i class="fa fa-check"></i><b>4.2.1</b> Filtered</a></li>
-<li class="chapter" data-level="4.2.2" data-path="community-composition.html"><a href="community-composition.html#unfiltered"><i class="fa fa-check"></i><b>4.2.2</b> Unfiltered</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="community-composition.html"><a href="community-composition.html#beta-diversities"><i class="fa fa-check"></i><b>4.3</b> Beta diversities</a>
+<li class="chapter" data-level="5" data-path="alpha-diversity.html"><a href="alpha-diversity.html"><i class="fa fa-check"></i><b>5</b> Alpha diversity</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="community-composition.html"><a href="community-composition.html#caecum"><i class="fa fa-check"></i><b>4.3.1</b> Caecum</a></li>
+<li class="chapter" data-level="5.1" data-path="alpha-diversity.html"><a href="alpha-diversity.html#filtered"><i class="fa fa-check"></i><b>5.1</b> Filtered</a></li>
+<li class="chapter" data-level="5.2" data-path="alpha-diversity.html"><a href="alpha-diversity.html#unfiltered"><i class="fa fa-check"></i><b>5.2</b> Unfiltered</a></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="beta-diversity.html"><a href="beta-diversity.html"><i class="fa fa-check"></i><b>6</b> Beta diversity</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="beta-diversity.html"><a href="beta-diversity.html#caecum"><i class="fa fa-check"></i><b>6.1</b> Caecum</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://www.3domics.eu" target="blank"><b>www.3domics.eu</b></a></li>
@@ -2126,7 +2126,11 @@ color: #741A48;
 <span id="cb3-4"><a href="data-preparation.html#cb3-4" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">batch=</span>LabBatch_text,<span class="at">microsample=</span>ID,<span class="at">section=</span>IntestinalSection,<span class="at">type=</span>SampleType,<span class="at">cryosection=</span>cryosection_text,<span class="at">buffer=</span>buffer_text) <span class="sc">%&gt;%</span></span>
 <span id="cb3-5"><a href="data-preparation.html#cb3-5" tabindex="-1"></a>  <span class="fu">select</span>(microsample,section,type,batch,cryosection,buffer,Xcoord,Ycoord,size) <span class="sc">%&gt;%</span></span>
 <span id="cb3-6"><a href="data-preparation.html#cb3-6" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="fu">c</span>(section, Xcoord, Ycoord, size)) <span class="sc">%&gt;%</span></span>
-<span id="cb3-7"><a href="data-preparation.html#cb3-7" tabindex="-1"></a>  <span class="fu">arrange</span>(microsample)</span></code></pre></div>
+<span id="cb3-7"><a href="data-preparation.html#cb3-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">protocol =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-8"><a href="data-preparation.html#cb3-8" tabindex="-1"></a>        microsample <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;M300682&quot;</span>,<span class="st">&quot;M300683&quot;</span>,<span class="st">&quot;M300684&quot;</span>,<span class="st">&quot;M300685&quot;</span>,<span class="st">&quot;M300686&quot;</span>,<span class="st">&quot;M300687&quot;</span>,<span class="st">&quot;M300688&quot;</span>,<span class="st">&quot;M300689&quot;</span>,<span class="st">&quot;M300690&quot;</span>,<span class="st">&quot;M300691&quot;</span>,<span class="st">&quot;M300692&quot;</span>,<span class="st">&quot;M300693&quot;</span>,<span class="st">&quot;M300694&quot;</span>,<span class="st">&quot;M300695&quot;</span>,<span class="st">&quot;M300696&quot;</span>,<span class="st">&quot;M300697&quot;</span>) <span class="sc">~</span> <span class="st">&quot;half_ulv2&quot;</span>,</span>
+<span id="cb3-9"><a href="data-preparation.html#cb3-9" tabindex="-1"></a>        microsample <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;M300650&quot;</span>,<span class="st">&quot;M300651&quot;</span>,<span class="st">&quot;M300652&quot;</span>,<span class="st">&quot;M300653&quot;</span>,<span class="st">&quot;M300654&quot;</span>,<span class="st">&quot;M300655&quot;</span>,<span class="st">&quot;M300656&quot;</span>,<span class="st">&quot;M300657&quot;</span>,<span class="st">&quot;M300658&quot;</span>,<span class="st">&quot;M300659&quot;</span>,<span class="st">&quot;M300660&quot;</span>,<span class="st">&quot;M300661&quot;</span>,<span class="st">&quot;M300662&quot;</span>,<span class="st">&quot;M300663&quot;</span>,<span class="st">&quot;M300664&quot;</span>,<span class="st">&quot;M300665&quot;</span>,<span class="st">&quot;M300666&quot;</span>,<span class="st">&quot;M300667&quot;</span>,<span class="st">&quot;M300668&quot;</span>,<span class="st">&quot;M300669&quot;</span>,<span class="st">&quot;M300670&quot;</span>,<span class="st">&quot;M300671&quot;</span>,<span class="st">&quot;M300672&quot;</span>,<span class="st">&quot;M300673&quot;</span>,<span class="st">&quot;M300674&quot;</span>,<span class="st">&quot;M300675&quot;</span>,<span class="st">&quot;M300676&quot;</span>,<span class="st">&quot;M300677&quot;</span>,<span class="st">&quot;M300678&quot;</span>,<span class="st">&quot;M300679&quot;</span>,<span class="st">&quot;M300680&quot;</span>,<span class="st">&quot;M300681&quot;</span>) <span class="sc">~</span> <span class="st">&quot;full_celero&quot;</span>,</span>
+<span id="cb3-10"><a href="data-preparation.html#cb3-10" tabindex="-1"></a>        <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;full_ulv2&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-11"><a href="data-preparation.html#cb3-11" tabindex="-1"></a>  <span class="fu">arrange</span>(microsample)</span></code></pre></div>
 </div>
 <div id="count-data" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Count data<a href="data-preparation.html#count-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
