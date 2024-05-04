@@ -125,7 +125,6 @@ quality_stats %>%
     ggplot(aes(x=reads_mapped_host_percent,y=microsample,fill=protocol))+
       geom_col()+
       scale_fill_manual(values=c("#6375ad","#d1b454","#d6885e")) +
-      geom_vline(xintercept=55, linetype="dashed", color = "red", size=1) + 
       facet_nested(batch + section + type ~ ., scales="free", space="free", switch = "y") +
       theme(strip.text.y.left = element_text(angle = 0)) +
       labs(x="Host %", y="Microsamples", fill="Library protocol")
@@ -140,7 +139,7 @@ quality_stats %>%
     ggplot(aes(x=reads_mapped_human_percent,y=microsample,fill=protocol))+
       geom_col()+
       scale_fill_manual(values=c("#6375ad","#d1b454","#d6885e")) +
-      geom_vline(xintercept=55, linetype="dashed", color = "red", size=1) + 
+      geom_vline(xintercept=5, linetype="dashed", color = "red", size=1) + 
       facet_nested(batch + section + type ~ ., scales="free", space="free", switch = "y") +
       theme(strip.text.y.left = element_text(angle = 0)) +
       labs(x="Human %", y="Microsamples", fill="Library protocol")
@@ -155,7 +154,7 @@ quality_stats %>%
     ggplot(aes(x=reads_mapped_percent,y=microsample,fill=protocol))+
       geom_col()+
       scale_fill_manual(values=c("#6375ad","#d1b454","#d6885e")) +
-      geom_vline(xintercept=60, linetype="dashed", color = "red", size=1) + 
+      geom_vline(xintercept=75, linetype="dashed", color = "red", size=1) + 
       facet_nested(batch + section + type ~ ., scales="free", space="free", switch = "y") +
       theme(strip.text.y.left = element_text(angle = 0)) +
       labs(x="Mapped to MAGs (%)", y="Microsamples", fill="Library protocol")
@@ -212,8 +211,8 @@ quality <- quality_stats %>%
         reads_mapped_human_percent < 5 ~ 1,
         TRUE ~ NA)) %>%
     mutate(bacteria = case_when(
-        reads_mapped_percent <= 60 ~ 0,
-        reads_mapped_percent > 60 ~ 1,
+        reads_mapped_percent <= 75 ~ 0,
+        reads_mapped_percent > 75 ~ 1,
         TRUE ~ NA)) %>%
     select(microsample, depth, duplicates, gc, human, bacteria) %>%
     mutate(quality = depth + duplicates + gc + human + bacteria) %>%
