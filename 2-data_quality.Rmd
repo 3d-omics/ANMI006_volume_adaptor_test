@@ -73,17 +73,17 @@ quality_stats <- read_stats %>%
 
 ### Sequencing depth
 
-```{r sequencing_depth, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+```{r sequencing_depth, warning=FALSE, comments="", message=FALSE, fig.height=12, fig.width=10, fig.fullwidth=TRUE}
 quality_stats %>%
     left_join(sample_metadata,by=join_by(microsample==microsample)) %>%
     filter(section != "Ileum") %>%
-    ggplot(aes(x=total_sequences,y=microsample,fill=buffer))+
+    ggplot(aes(x=total_sequences,y=microsample,fill=protocol))+
       geom_col()+
-      scale_fill_manual(values=c("#6375ad","#d1b454")) +
+      scale_fill_manual(values=c("#6375ad","#d1b454","#d6885e")) +
       geom_vline(xintercept=10000000, linetype="dashed", color = "red", size=1) + 
       facet_nested(batch + section + type ~ ., scales="free", space="free", switch = "y") +
       theme(strip.text.y.left = element_text(angle = 0)) +
-      labs(x="Number of reads", y="Microsamples", fill="Lysis buffer")
+      labs(x="Number of reads", y="Microsamples", fill="Library protocol")
 ```
 
 ### Sequence duplication
@@ -92,13 +92,13 @@ quality_stats %>%
 quality_stats %>%
     left_join(sample_metadata,by=join_by(microsample==microsample)) %>%
     filter(section != "Ileum") %>%
-    ggplot(aes(x=percent_duplicates,y=microsample,fill=buffer))+
+    ggplot(aes(x=percent_duplicates,y=microsample,fill=protocol))+
       geom_col()+
-      scale_fill_manual(values=c("#6375ad","#d1b454")) +
+      scale_fill_manual(values=c("#6375ad","#d1b454","#d6885e")) +
       geom_vline(xintercept=65, linetype="dashed", color = "red", size=1) + 
       facet_nested(batch + section + type ~ ., scales="free", space="free", switch = "y") +
       theme(strip.text.y.left = element_text(angle = 0)) +
-      labs(x="Percentage of duplicates", y="Microsamples", fill="Lysis buffer")
+      labs(x="Percentage of duplicates", y="Microsamples", fill="Library protocol")
 ```
 
 ### GC %
@@ -113,52 +113,52 @@ quality_stats %>%
       geom_vline(xintercept=55, linetype="dashed", color = "red", size=1) + 
       facet_nested(batch + section + type ~ ., scales="free", space="free", switch = "y") +
       theme(strip.text.y.left = element_text(angle = 0)) +
-      labs(x="Percentage of GC", y="Microsamples", fill="Lysis buffer")
+      labs(x="Percentage of GC", y="Microsamples", fill="Library protocol")
 ```
 
 ### Host %
 
-```{r host_percentage, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+```{r host_percentage, warning=FALSE, comments="", message=FALSE, fig.height=12, fig.width=10, fig.fullwidth=TRUE}
 quality_stats %>%
     left_join(sample_metadata,by=join_by(microsample==microsample)) %>%
     filter(section != "Ileum") %>%
-    ggplot(aes(x=reads_mapped_host_percent,y=microsample,fill=buffer))+
+    ggplot(aes(x=reads_mapped_host_percent,y=microsample,fill=protocol))+
       geom_col()+
-      scale_fill_manual(values=c("#6375ad","#d1b454")) +
+      scale_fill_manual(values=c("#6375ad","#d1b454","#d6885e")) +
       geom_vline(xintercept=55, linetype="dashed", color = "red", size=1) + 
       facet_nested(batch + section + type ~ ., scales="free", space="free", switch = "y") +
       theme(strip.text.y.left = element_text(angle = 0)) +
-      labs(x="Host %", y="Microsamples", fill="Lysis buffer")
+      labs(x="Host %", y="Microsamples", fill="Library protocol")
 ```
 
 ### Human %
 
-```{r human_percentage, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+```{r human_percentage, warning=FALSE, comments="", message=FALSE, fig.height=12, fig.width=10, fig.fullwidth=TRUE}
 quality_stats %>%
     left_join(sample_metadata,by=join_by(microsample==microsample)) %>%
     filter(section != "Ileum") %>%
-    ggplot(aes(x=reads_mapped_human_percent,y=microsample,fill=buffer))+
+    ggplot(aes(x=reads_mapped_human_percent,y=microsample,fill=protocol))+
       geom_col()+
-      scale_fill_manual(values=c("#6375ad","#d1b454")) +
+      scale_fill_manual(values=c("#6375ad","#d1b454","#d6885e")) +
       geom_vline(xintercept=55, linetype="dashed", color = "red", size=1) + 
       facet_nested(batch + section + type ~ ., scales="free", space="free", switch = "y") +
       theme(strip.text.y.left = element_text(angle = 0)) +
-      labs(x="Human %", y="Microsamples", fill="Lysis buffer")
+      labs(x="Human %", y="Microsamples", fill="Library protocol")
 ```
 
 ### Bacteria mapping %
 
-```{r bacteria_mapped, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+```{r bacteria_mapped, warning=FALSE, comments="", message=FALSE, fig.height=12, fig.width=10, fig.fullwidth=TRUE}
 quality_stats %>%
     left_join(sample_metadata,by=join_by(microsample==microsample)) %>%
     filter(section != "Ileum") %>%
-    ggplot(aes(x=reads_mapped_percent,y=microsample,fill=buffer))+
+    ggplot(aes(x=reads_mapped_percent,y=microsample,fill=protocol))+
       geom_col()+
-      scale_fill_manual(values=c("#6375ad","#d1b454")) +
+      scale_fill_manual(values=c("#6375ad","#d1b454","#d6885e")) +
       geom_vline(xintercept=60, linetype="dashed", color = "red", size=1) + 
       facet_nested(batch + section + type ~ ., scales="free", space="free", switch = "y") +
       theme(strip.text.y.left = element_text(angle = 0)) +
-      labs(x="Mapped to MAGs (%)", y="Microsamples", fill="Lysis buffer")
+      labs(x="Mapped to MAGs (%)", y="Microsamples", fill="Library protocol")
 ```
 
 ## Biplots
@@ -170,9 +170,11 @@ quality_stats %>%
     left_join(sample_metadata,by=join_by(microsample==microsample)) %>%
     filter(section != "Ileum") %>%
     filter(type == "Positive") %>%
-    ggplot(aes(x=percent_gc,y=total_sequences,color=buffer))+
+    ggplot(aes(x=percent_gc,y=total_sequences,color=protocol))+
       geom_point()+
-      facet_nested(. ~ batch, scales="free")
+      scale_color_manual(values=c("#6375ad","#d1b454","#d6885e")) +
+      facet_nested(. ~ batch, scales="free") +
+      labs(color="Library protocol")
 ```
 
 ### Duplicates vs. GC %
@@ -182,9 +184,11 @@ quality_stats %>%
     left_join(sample_metadata,by=join_by(microsample==microsample)) %>%
     filter(section != "Ileum") %>%
     filter(type == "Positive") %>%
-    ggplot(aes(x=percent_gc,y=percent_duplicates,color=buffer))+
+    ggplot(aes(x=percent_gc,y=percent_duplicates,color=protocol))+
       geom_point()+
-      facet_nested(. ~ batch, scales="free")
+      scale_color_manual(values=c("#6375ad","#d1b454","#d6885e")) +
+      facet_nested(. ~ batch, scales="free")+
+      labs(color="Library protocol")
 ```
 
 ## Quality flagging
@@ -220,7 +224,7 @@ quality %>% write_tsv("results/quality.tsv")
 
 ### Quality overview
 
-```{r quality_plot, warning=FALSE, comments="", message=FALSE, fig.height=8, fig.width=10, fig.fullwidth=TRUE}
+```{r quality_plot, warning=FALSE, comments="", message=FALSE, fig.height=12, fig.width=10, fig.fullwidth=TRUE}
 quality %>%
     left_join(sample_metadata,by=join_by(microsample==microsample)) %>%
     filter(section != "Ileum") %>%
@@ -238,7 +242,7 @@ quality %>%
     left_join(sample_metadata,by=join_by(microsample==microsample)) %>%
     filter(section != "Ileum") %>%
     filter(type == "Positive") %>%
-    group_by(batch) %>%
+    group_by(protocol) %>%
     summarise(average=mean(quality, na.rm=TRUE), percentage_5 = mean(quality == 5, na.rm = TRUE) * 100) %>%
     tt()
 ```
