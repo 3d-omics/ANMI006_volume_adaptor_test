@@ -107,10 +107,10 @@ quality_stats %>%
 quality_stats %>%
     left_join(sample_metadata,by=join_by(microsample==microsample)) %>%
     filter(section != "Ileum") %>%
-    ggplot(aes(x=percent_gc,y=microsample,fill=buffer))+
+    ggplot(aes(x=percent_gc,y=microsample,fill=protocol))+
       geom_col()+
-      scale_fill_manual(values=c("#6375ad","#d1b454")) +
-      geom_vline(xintercept=55, linetype="dashed", color = "red", size=1) + 
+      scale_fill_manual(values=c("#6375ad","#d1b454","#d6885e")) +
+      geom_vline(xintercept=60, linetype="dashed", color = "red", size=1) + 
       facet_nested(batch + section + type ~ ., scales="free", space="free", switch = "y") +
       theme(strip.text.y.left = element_text(angle = 0)) +
       labs(x="Percentage of GC", y="Microsamples", fill="Library protocol")
@@ -204,8 +204,8 @@ quality <- quality_stats %>%
         percent_duplicates < 65 ~ 1,
         TRUE ~ NA)) %>%
     mutate(gc = case_when(
-        percent_gc >= 55 ~ 0,
-        percent_gc < 55 ~ 1,
+        percent_gc >= 60 ~ 0,
+        percent_gc < 60 ~ 1,
         TRUE ~ NA)) %>%
     mutate(human = case_when(
         reads_mapped_human_percent >= 5 ~ 0,
